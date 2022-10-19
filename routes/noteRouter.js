@@ -30,5 +30,16 @@ notes.post('/', (req, res) => {
 })
 
 
+//DELETE route
+notes.delete('/:id', (req, res) => {
+    let db = JSON.parse(fs.readFileSync('db/db.json'));
 
+    //collaborator: shelby hernandez
+    let filteredNote = db.filter((item) => item.id !== req.params.id);
+
+
+    fs.writeFileSync('db/db.json', JSON.stringify(filteredNote));
+    res.json(filteredNote);
+    window.alert('Note successfully deleted')
+})
 module.exports = noteRouter;
