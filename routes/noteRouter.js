@@ -1,17 +1,17 @@
-const notes = require('express').Router();
+const notesRouter = require('express').Router();
 const { readFromFile, readAndAppend } = require('../helpers/fsUtils');
 const uuid = require('../helpers/uuid');
 const fs = require('fs');
 
 
 //GET route for retreiving all notes - sourced from assignment 26
-notes.get('/', (req, res) => {
+notesRouter.get('/', (req, res) => {
     readFromFile('./db/db.json')
     .then((data) => res.json(JSON.parse(data)));
 });
 
 //POST route for a new note
-notes.post('/', (req, res) => {
+notesRouter.post('/', (req, res) => {
     const { title, text } = req.body;
 
     if (req.body) {
@@ -31,7 +31,7 @@ notes.post('/', (req, res) => {
 
 
 //DELETE route
-notes.delete('/:id', (req, res) => {
+notesRouter.delete('/:id', (req, res) => {
     let db = JSON.parse(fs.readFileSync('db/db.json'));
 
     //collaborator: shelby hernandez
@@ -40,6 +40,8 @@ notes.delete('/:id', (req, res) => {
 
     fs.writeFileSync('db/db.json', JSON.stringify(filteredNote));
     res.json(filteredNote);
-    window.alert('Note successfully deleted')
+    console.log('Note successfully deleted')
 })
-module.exports = noteRouter;
+
+
+module.exports = notesRouter;

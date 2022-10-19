@@ -90,6 +90,7 @@ const handleNoteDelete = (e) => {
   }
 
   deleteNote(noteId).then(() => {
+    window.alert('Note Succ')
     getAndRenderNotes();
     renderActiveNote();
   });
